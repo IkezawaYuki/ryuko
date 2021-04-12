@@ -1,18 +1,40 @@
-#include <cstdint>
 #include <iostream>
 
-extern "C" void unsafe_c_function(char* str)
-{
-    std::cout << "unsafe_c_function" << str << std::endl;
-}
+class Base{
+public:
+    virtual ~Base(){}
+    const char* get_class_name() const { return "Base"; }
+};
 
-void unsafe_interface_function(void* data)
+class Derived : public Base
 {
-    auto value = reinterpret_cast<std::intptr_t>(data);
-    std::cout << "unsafe_interface_function: " << value << std::endl;
-}
+public:
+    const char* get_class_name() const { return "Derived"; }
+};
 
-int main()
+class MoreDerived : public Derived
 {
+public:
+    const char* get_class_name() const { return "MoreDerived"; }
+};
 
+int main(){
+    Derived d;
+    Base* pb = &d;
+    std::cout << pb->get_class_name() << std::endl;
+    Derived* pd = dynamic_cast<Derived*>(pb);
+    if (pd) {
+        std::cout << pd->get_class_name()<<std::endl;
+    }
+    else {
+        std::cout << "ダイナミックキャストに失敗" << std::endl;
+    }
+
+    MoreDerived* pmd = dynamic_cast<MoreDerived*>(pd);
+    if (pmd) {
+        std::cout << pmd->get_class_name() << std::endl;
+    }
+    else{
+        std::cout << "dynamic_cast失敗" << std::endl;
+    }
 }
