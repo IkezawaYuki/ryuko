@@ -1,6 +1,8 @@
 #include <iostream>
+#include <typeinfo>
 
-class Base{
+class Base
+{
 public:
     virtual ~Base(){}
     const char* get_class_name() const { return "Base"; }
@@ -20,21 +22,21 @@ public:
 
 int main(){
     Derived d;
-    Base* pb = &d;
-    std::cout << pb->get_class_name() << std::endl;
-    Derived* pd = dynamic_cast<Derived*>(pb);
-    if (pd) {
-        std::cout << pd->get_class_name()<<std::endl;
-    }
-    else {
-        std::cout << "ダイナミックキャストに失敗" << std::endl;
+    Base& rb = d;
+    std::cout << rb.get_class_name() << std::endl;
+    try {
+        Derived& rd = dynamic_cast<Derived&>(rb);
+        std::cout << rd.get_class_name() << std::endl;
+    }catch (std::bad_cast& bc)
+    {
+        std::cout << "dynamic_cast失敗" << std::endl;
     }
 
-    MoreDerived* pmd = dynamic_cast<MoreDerived*>(pd);
-    if (pmd) {
-        std::cout << pmd->get_class_name() << std::endl;
+    try{
+        MoreDerived& rmd = dynamic_cast<MoreDerived&>(rb);
+        std::cout << rmd.get_class_name() << std::endl;
     }
-    else{
+    catch (std::bad_cast& bc) {
         std::cout << "dynamic_cast失敗" << std::endl;
     }
 }
