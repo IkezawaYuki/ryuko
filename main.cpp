@@ -1,18 +1,26 @@
 #include <map>
+#include <set>
 #include <iostream>
 
 int main(){
-    std::map<std::string, float> w;
-    w["H"] = 1.00f;
-    w["O"] = 15.99f;
-    w["Cl"] = 35.97f;
-    w["?"];
+    std::multiset ims = {1,1,2,2};
+    ims.insert(5);
+    ims.insert(2);
 
-    w.insert(std::pair{"Na", 22.99f});
+    auto range = ims.equal_range(2);
 
-    for (const auto& [key, value]: w)
+    for (auto iter = range.first; iter != range.second; ++iter)
     {
-        std::cout << key << ":" << value << std::endl;
+        std::cout << *iter << " ";
     }
-    std::cout << "NaOH = " << w["Na"] + w["O"] + w["H"]  << std::endl;
+    std::cout << std::endl;
+
+    std::size_t erased = ims.erase(2);
+    std::cout << "elements num:" << erased << std::endl;
+
+    for (auto iter = ims.begin(); iter != ims.end(); ++iter)
+    {
+        std::cout << *iter << " ";
+    }
+    std::cout << std::endl;
 }
