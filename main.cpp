@@ -1,42 +1,18 @@
+#include <map>
 #include <iostream>
-#include <typeinfo>
-
-class Base
-{
-public:
-    virtual ~Base(){}
-    const char* get_class_name() const { return "Base"; }
-};
-
-class Derived : public Base
-{
-public:
-    const char* get_class_name() const { return "Derived"; }
-};
-
-class MoreDerived : public Derived
-{
-public:
-    const char* get_class_name() const { return "MoreDerived"; }
-};
 
 int main(){
-    Derived d;
-    Base& rb = d;
-    std::cout << rb.get_class_name() << std::endl;
-    try {
-        Derived& rd = dynamic_cast<Derived&>(rb);
-        std::cout << rd.get_class_name() << std::endl;
-    }catch (std::bad_cast& bc)
-    {
-        std::cout << "dynamic_cast失敗" << std::endl;
-    }
+    std::map<std::string, float> w;
+    w["H"] = 1.00f;
+    w["O"] = 15.99f;
+    w["Cl"] = 35.97f;
+    w["?"];
 
-    try{
-        MoreDerived& rmd = dynamic_cast<MoreDerived&>(rb);
-        std::cout << rmd.get_class_name() << std::endl;
+    w.insert(std::pair{"Na", 22.99f});
+
+    for (const auto& [key, value]: w)
+    {
+        std::cout << key << ":" << value << std::endl;
     }
-    catch (std::bad_cast& bc) {
-        std::cout << "dynamic_cast失敗" << std::endl;
-    }
+    std::cout << "NaOH = " << w["Na"] + w["O"] + w["H"]  << std::endl;
 }
