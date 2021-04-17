@@ -8,4 +8,4 @@ add_executable(ryuko main.cpp
         Date.h
         Accounting.cpp
         Accounting.h
-        IdNo.cpp IdNo.h)
+        IdNo.cpp IdNo.h Point2d.cpp Point2d.h Circle.h)
