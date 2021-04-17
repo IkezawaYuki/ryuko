@@ -3,8 +3,8 @@
 
 #include "Accounting.h"
 
-Accounting::Accounting(std::string name, long amnt, int y, int m, int d)
-    :full_name(name), crnt_asset(amnt), birth(y,m,d){
+Accounting::Accounting(const std::string& name, long amnt, const Date& op)
+    :full_name(name), crnt_asset(amnt), birth(op){
 }
 
 void Accounting::earn(long amnt) {

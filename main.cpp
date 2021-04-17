@@ -1,10 +1,11 @@
 #include <iostream>
 #include "Accounting.h"
+//#include "Date.h"
 using namespace std;
 
 int main() {
-    Accounting nakano("nakano hayato", 1000, 2125, 1, 24);
-    Accounting yamada("yamada hirohumi", 200, 2123, 7, 15);
+    Accounting nakano("nakano hayato", 1000, Date(2125, 1, 24));
+    Accounting yamada("yamada hirohumi", 200, Date(2123, 7, 15));
 
     nakano.spend(200);
     yamada.earn(100);

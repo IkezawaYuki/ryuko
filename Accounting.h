@@ -9,7 +9,7 @@ class Accounting {
     long crnt_asset;
     Date birth;
 public:
-    Accounting(std::string name, long amnt, int y, int m, int d);
+    Accounting(const std::string& name, long amnt, const Date& op);
     std::string name() { return full_name; }
     long asset() { return crnt_asset; }
     void earn(long amnt);

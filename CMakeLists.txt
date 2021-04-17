@@ -3,4 +3,9 @@ project(ryuko)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(ryuko main.cpp Date.cpp Date.h Accounting.cpp Accounting.h)
+add_executable(ryuko main.cpp
+        Date.cpp
+        Date.h
+        Accounting.cpp
+        Accounting.h
+        IdNo.cpp IdNo.h)
