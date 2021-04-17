@@ -1,14 +1,23 @@
 #include <iostream>
-#include "Date.h"
+#include "Accounting.h"
 using namespace std;
 
 int main() {
-    Date a(2025, 11, 18);
-    Date b = a;
-    Date c = Date(2023, 12, 27);
+    Accounting nakano("nakano hayato", 1000, 2125, 1, 24);
+    Accounting yamada("yamada hirohumi", 200, 2123, 7, 15);
 
-    cout << a.year() << "年" << a.month() << "月" << a.date() << "日" << endl;
-    cout << b.year() << "年" << b.month() << "月" << b.date() << "日" << endl;
-    cout << c.year() << "年" << c.month() << "月" << c.date() << "日" << endl;
+    nakano.spend(200);
+    yamada.earn(100);
 
+    cout << "中野くん" << endl;
+    cout << "氏名＝" << nakano.name() << endl;
+    cout << "資産＝" << nakano.asset() << endl;
+    cout << "誕生日＝" << nakano.birthday().year() << "年"
+    << nakano.birthday().month() << "月"
+    << nakano.birthday().date() << "日" << endl;
+
+    cout << "山田くん" << endl;
+    cout << "氏名＝" << yamada.name() << endl;
+    cout << "資産＝" << yamada.asset() << endl;
+    cout << "誕生日＝" << yamada.birthday() << endl;
 }
