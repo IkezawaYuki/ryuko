@@ -1,24 +1,17 @@
 #include <iostream>
 #include "Accounting.h"
-//#include "Date.h"
+#include "Counter.h"
 using namespace std;
 
+
 int main() {
-    Accounting nakano("nakano hayato", 1000, Date(2125, 1, 24));
-    Accounting yamada("yamada hirohumi", 200, Date(2123, 7, 15));
+    int no;
+    Counter x;
+    Counter y;
+    cout << "カウントアップ回数";
+    cin >> no;
+    for (int i = 0; i < no; i++) {
+        cout << x++ << " " << ++y << endl;
+    }
 
-    nakano.spend(200);
-    yamada.earn(100);
-
-    cout << "中野くん" << endl;
-    cout << "氏名＝" << nakano.name() << endl;
-    cout << "資産＝" << nakano.asset() << endl;
-    cout << "誕生日＝" << nakano.birthday().year() << "年"
-    << nakano.birthday().month() << "月"
-    << nakano.birthday().date() << "日" << endl;
-
-    cout << "山田くん" << endl;
-    cout << "氏名＝" << yamada.name() << endl;
-    cout << "資産＝" << yamada.asset() << endl;
-    cout << "誕生日＝" << yamada.birthday() << endl;
 }

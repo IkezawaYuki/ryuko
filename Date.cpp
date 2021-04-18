@@ -1,6 +1,3 @@
-//
-// Created by 池澤勇輝 on 2021/04/16.
-//
 
 #include "Date.h"
 #include <ctime>
@@ -8,6 +5,31 @@
 #include <sstream>
 
 using namespace std;
+
+int Date::dmax[] = {31,28,31,30,31,30,31,31,30,31,30,31};
+
+int Date::days_of_month(int y, int m)
+{
+    return dmax[m-1]+(m==2&&leap_year(y));
+}
+
+int Date::days_of_year(int y)
+{
+    return 365 + leap_year(y);
+}
+
+int Date::adjusted_month(int m)
+{
+    return m < 1 ? 1 : m > 12 ? 12 : m;
+}
+
+int Date::adjusted_day(int y, int m, int d)
+{
+    if (d < 1) return 1;
+    int max_day = days_of_month(y, m);
+    return d > max_day ? max_day : d;
+}
+
 
 Date::Date() {
     time_t current = time(NULL);
@@ -18,13 +40,40 @@ Date::Date() {
     d = local->tm_mday;
 }
 
-Date::Date(int yy, int mm, int dd): y(yy), m(mm), d(dd) {}
 
-Date Date::precending_day() const
+Date::Date(int yy, int mm, int dd)
 {
-    int dmax[] = {31,28,31,30,31,30,31,31,30,31,30,31};
-    Date temp = *this;
+    set(yy, mm, dd);
+}
 
+void Date::set_year(int yy)
+{
+    y = yy;
+    d = adjusted_day(y, m, d);
+}
+
+void Date::set_month(int mm)
+{
+    m = adjusted_month(mm);
+    d = adjusted_day(y, m, d);
+}
+
+void Date::set_day(int dd)
+{
+    d = adjusted_day(y, m, dd);
+}
+
+void Date::set(int yy, int mm, int dd)
+{
+    y = yy;
+    m = adjusted_month(mm);
+    d = adjusted_day(y, m, dd);
+}
+
+
+Date Date::preceding_day() const
+{
+    Date temp = *this;
     if (temp.d > 1) {
         temp.d--;
     } else {
