@@ -205,6 +205,46 @@ long Date::operator-(const Date& day) const
     return count;
 }
 
+bool Date::operator==(const Date& day) const
+{
+    return y == day.y && m == day.m && d == day.d;
+}
+
+bool Date::operator!=(const Date &day) const
+{
+    return !(*this == day);
+}
+
+bool Date::operator>(const Date &day) const
+{
+    if (y > day.y) return true;
+    if (y < day.y) return false;
+    if (m > day.m) return true;
+    if (m < day.m) return false;
+
+    return d > day.d;
+}
+
+bool Date::operator>=(const Date &day) const
+{
+    return !(*this < day);
+}
+
+bool Date::operator<(const Date &day) const
+{
+    if (y < day.y) return true;
+    if (y > day.y) return false;
+    if (m < day.m) return true;
+    if (m > day.m) return false;
+
+    return d < day.d;
+}
+
+bool Date::operator<=(const Date &date) const
+{
+    return !(*this > date);
+}
+
 ostream& operator<<(ostream& s, const Date& x)
 {
     return s << x.to_string();
