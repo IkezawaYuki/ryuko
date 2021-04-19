@@ -39,7 +39,7 @@ public:
     Date& operator--();
     Date operator--(int);
     Date& operator+=(int n);
-    Date operator-=(int n);
+    Date& operator-=(int n);
     Date operator+(int n) const;
     friend Date operator+(int n, const Date& date);
     Date operator-(int n) const;
