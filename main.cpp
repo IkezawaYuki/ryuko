@@ -87,5 +87,6 @@ void before_after(Date& day)
 }
 
 int main() {
+    Bas has;
 
 }
