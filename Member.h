@@ -16,7 +16,7 @@ public:
     int no() const { return number; }
     double get_weight() const { return weight; }
     void set_weight(double w) { weight = (w > 0) ? w : 0; }
-    void print() const;
+    virtual void print() const;
 };
 
 
