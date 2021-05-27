@@ -7,20 +7,37 @@
 
 using namespace std;
 
-int MAX = 2000000;
+void trace(int A[], int N) {
+    for (int i = 0; i < N; i++) {
+        if (i > 0){
+            cout << " ";
+        }
+        cout << A[i];
+    }
+    cout << endl;
+}
+
+void insertionSort(int A[], int N) {
+    for (int i = 1; i < N; i++) {
+        int v = A[i];
+        int j = i - 1;
+        while (j >= 0 && v < A[j]) {
+            A[j+1] = A[j];
+            j--;
+        }
+        A[j+1] = v;
+        trace(A, N);
+    }
+}
 
 int main(){
-    int Arr[MAX], n;
-    cin >> n;
-    for (int i = 0; i < n; i++) cin >> Arr[i];
+    int A[100], N;
 
-    int maxv = -2000000;
-    int minv = Arr[0];
-
-    for (int i = 1; i < n; i++) {
-        maxv = max(maxv, Arr[i] - minv);
-        minv = min(minv, Arr[i]);
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        cin >> A[i];
     }
 
-    cout << maxv << endl;
+    trace(A, N);
+    insertionSort(A, N);
 }
