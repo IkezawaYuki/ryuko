@@ -32,16 +32,31 @@ void insertionSort(int R[], int N) {
 
 int bubbleSort(int R[], int N) {
     int sw = 0;
-    bool flag = 1;
+    bool flag = true;
     for (int i = 0; flag; i++) {
-        flag = 0;
+        flag = false;
         for (int j = N - 1; j >= i + 1; j--) {
-            if (R[j] < R[j-1]){
+            if (R[j-1] > R[j]) {
                 swap(R[j], R[j-1]);
+                flag = true;
                 sw++;
-                flag = 1;
             }
         }
+    }
+    return sw;
+}
+
+int selectionSort(int R[], int N) {
+    int sw = 0;
+    for (int i = 0; i < N - 1; i++) {
+        int minv = i;
+        for (int j = i; j < N; j++) {
+            if (R[j] < R[minv]) {
+                minv = j;
+            }
+        }
+        swap(R[minv], R[i]);
+        if (minv != i) sw++;
     }
     return sw;
 }
@@ -54,7 +69,8 @@ int main(){
     trace(R, N);
 //    insertionSort(R, N);
 
-    int sw = bubbleSort(R, N);
+//    int sw = bubbleSort(R, N);
+    int sw = selectionSort(R, N);
     cout << sw << endl;
     trace(R, N);
 }
