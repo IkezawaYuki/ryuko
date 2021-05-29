@@ -7,70 +7,75 @@
 
 using namespace std;
 
-void trace(int R[], int N) {
+struct Card {
+    char suit;
+    int value;
+};
+
+void bubble(Card C[], int N) {
+    for (int i = 0; i < N; i++) {
+        for (int j = N - 1; i <= j; j--) {
+            if (C[j-1].value > C[j].value) {
+                Card t = C[j];
+                C[j] = C[j-1];
+                C[j-1] = t;
+            }
+        }
+    }
+}
+
+void selection(Card C[], int N) {
+    for (int i = 0; i < N; i++) {
+        int minv = i;
+        for (int j = i; j < N; j++) {
+            if (C[minv].value > C[j].value) {
+                minv = j;
+            }
+        }
+        Card t = C[i];
+        C[i] = C[minv];
+        C[minv] = t;
+    }
+}
+
+void print(Card C[], int N) {
     for (int i = 0; i < N; i++) {
         if (i > 0) {
             cout << " ";
         }
-        cout << R[i];
+        cout << C[i].suit << C[i].value;
     }
     cout << endl;
 }
 
-void insertionSort(int R[], int N) {
-    for (int i = 1; i < N; i++) {
-        int j = i - 1;
-        int v = R[i];
-        while (j >= 0 && v < R[j]) {
-            R[j+1] = R[j];
-            j--;
-        }
-        R[j+1] = v;
-        trace(R, N);
-    }
-}
-
-int bubbleSort(int R[], int N) {
-    int sw = 0;
-    bool flag = true;
-    for (int i = 0; flag; i++) {
-        flag = false;
-        for (int j = N - 1; j >= i + 1; j--) {
-            if (R[j-1] > R[j]) {
-                swap(R[j], R[j-1]);
-                flag = true;
-                sw++;
-            }
+bool isSuitable(Card C1[], Card C2[], int N) {
+    for (int i = 0; i < N; i++) {
+        if (C1[i].suit != C2[i].suit) {
+            return false;
         }
     }
-    return sw;
-}
-
-int selectionSort(int R[], int N) {
-    int sw = 0;
-    for (int i = 0; i < N - 1; i++) {
-        int minv = i;
-        for (int j = i; j < N; j++) {
-            if (R[j] < R[minv]) {
-                minv = j;
-            }
-        }
-        swap(R[minv], R[i]);
-        if (minv != i) sw++;
-    }
-    return sw;
+    return true;
 }
 
 int main(){
-    int R[100], N;
+    Card C1[100], C2[100];
+    int N;
     cin >> N;
-    for (int i = 0; i < N; i++) cin >> R[i];
+    for (int i = 0; i < N; i++) {
+        cin >> C1[i].suit >> C1[i].value;
+    }
+    for (int i = 0; i < N; i++) {
+        C2[i] = C1[i];
+    }
 
-    trace(R, N);
-//    insertionSort(R, N);
-
-//    int sw = bubbleSort(R, N);
-    int sw = selectionSort(R, N);
-    cout << sw << endl;
-    trace(R, N);
+    bubble(C1, N);
+    print(C1, N);
+    cout << "suitable" << endl;
+    selection(C2, N);
+    print(C2, N);
+    if (isSuitable(C1, C2, N)) {
+        cout << "suitable";
+    } else {
+        cout << "not suitable";
+    }
 }
