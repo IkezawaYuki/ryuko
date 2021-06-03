@@ -6,44 +6,46 @@
 #include <algorithm>
 
 using namespace std;
+#define LEN 10005;
 
-int cnt;
-vector<int>G;
+typedef struct pp {
+    char name[100];
+    int t;
+} P;
 
-void insertionSort(int A[], int N, int gap) {
-    for (int i = gap; i < N; i++) {
-        int v = A[i];
-        int j = i - gap;
-        while (j >= 0 && A[j] > v) {
-            A[j+gap] = A[j];
-            j -= gap;
-            cnt++;
-        }
-        A[j+gap] = v;
-    }
+P Q[10005];
+int head, tail, n;
+
+void enqueue(P x) {
+    Q[tail] = x;
+    tail = (tail + 1) % LEN;
 }
 
-void shellSort(int A[], int N) {
-    for (int h = 1; ;) {
-        if (h > N) {
-            break;
-        }
-        G.push_back(h);
-        h = h * 3 + 1;
-    }
-
-    for (int i = G.size()-1; i >= 0; i--) {
-        insertionSort(A, N, G[i]);
-    }
+P dequeue() {
+    P x = Q[head];
+    head = (head + 1) % LEN;
+    return x;
 }
 
+int min(int a, int b) { return a < b ? a : b; }
 
 int main(){
-    int A[10000], N;
-    cin >> N;
-    for (int i = 0; i < N; i++) {
-        cin >> A[i];
+    int n, q;
+    int elapse = 0;
+    scanf("%d %d", &n, &q);
+    for (int i = 1; i < n + 1; i++) {
+        scanf("%s", Q[i].name);
+        scanf("%d", &Q[i].t);
     }
-    cnt = 0;
-    shellSort(A, N)
+    int head = 1, tail = n;
+    while (head != tail) {
+        P x = dequeue();
+        int c = min(q, x.t);
+        x.t -= c;
+        elapse += c;
+        if (x.t != 0) {
+            enqueue(x);
+        }
+    }
+    cout << elapse << endl;
 }
