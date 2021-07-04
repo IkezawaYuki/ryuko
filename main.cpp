@@ -1,51 +1,20 @@
-#include <vector>
-#include <string>
-#include <iostream>
-#include <ctime>
-#include <fstream>
-#include <algorithm>
 
-using namespace std;
-#define LEN 10005;
+#include<stdio.h>
+#include<string.h>
 
-typedef struct pp {
-    char name[100];
-    int t;
-} P;
+#define M 1046527
+#define NIL (-1)
+#define L 14
 
-P Q[10005];
-int head, tail, n;
-
-void enqueue(P x) {
-    Q[tail] = x;
-    tail = (tail + 1) % LEN;
-}
-
-P dequeue() {
-    P x = Q[head];
-    head = (head + 1) % LEN;
-    return x;
-}
-
-int min(int a, int b) { return a < b ? a : b; }
+char H[M][L];
 
 int main(){
-    int n, q;
-    int elapse = 0;
-    scanf("%d %d", &n, &q);
-    for (int i = 1; i < n + 1; i++) {
-        scanf("%s", Q[i].name);
-        scanf("%d", &Q[i].t);
+    int i, n, h;
+    char str[L], com[9];
+    for (i = 0; i < M; i++) H[i][0] = '\0';
+    scanf("%d", &n);
+    for (i = 0; i < n; i++) {
+        scanf("%s %s", com, str);
+
     }
-    int head = 1, tail = n;
-    while (head != tail) {
-        P x = dequeue();
-        int c = min(q, x.t);
-        x.t -= c;
-        elapse += c;
-        if (x.t != 0) {
-            enqueue(x);
-        }
-    }
-    cout << elapse << endl;
 }
